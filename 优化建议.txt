@@ -1,0 +1,133 @@
+【影响测试原因】
+1.地理位置和网络延迟
+2.响应大小
+3.代码处理
+4.浏览器行为
+5.web服务器配置
+
+firebug| yslow| page speed
+yui comprossor |closure compiler | smush.it 
+
+【响应大小优化方向】
+1.图片压缩 （smush.it 无损压缩）
+2.css/js 压缩 css(顶部) js（底部）
+3.数据压缩 gzip
+
+【php最佳编码实践】
+>使用 require代替 require_once
+ 每一层次的目录都会检查文件stat
+ require比require_once检查stat次数会少
+>使用foreach替代for或while 
+>提前计算一个for循环的长度，循环中的计算提到循环外
+>使用file_get_contents访问文件 代替fread
+ file_get_contents会将文件缓存读到内存中（内存映射）
+ 但是如果文件足够大（几百M）或足够小（几kb），建议使用read
+>非变量引用使用单引号括字符串 'abc'
+>输出连接符可用逗号代替句点 echo 'a','b';
+>如非必要，减少类中函数封装
+
+【VLD（反汇编程序）工具】
+生成opcode中间代码，尽可能减少opcode，加快编译速度
+【安装vld扩展】
+测试：
+示例：去掉连接符'.'改','
+php -dvld.active=1 echo.php 
+---------------------------------
+
+【strace工具】
+可以在apache中跟踪所调用的C级函数
+【安装】
+http://sourceforge.net/projects/strace 
+yum -y install strace 
+绑定strace和apache
+1.以调试模式启动apache
+apache2clt -X -k start
+2.查看apache进程id
+ps aux2 | grep www-data
+3.跟踪进程id
+strace -p 进程id
+
+【xdebug2调试工具】
+安装x-debug扩展
+[PHP_Xdebug]
+zend_extension_ts='FULL PATH TO php_xdebug fiel'
+属性：
+xdebug.profiler_enable 开启1 关闭0
+xdebug.profiler_output_dir 防止cachegrind文件目录
+xdebug.profiler_append 覆盖文件1 默认0
+xdebug.profiler_output_name 所用文件名称
+xdebug.profiler_enable_trigger  允许性能分析工具开始使用一个GET/POST
+或COOKIE变量 XDEBUG_PORFILE xdebug.profiler_enabled必须设置为0
+
+xdebug.profiler_enable=1
+xdebug.profiler_enable_trigger=1
+xdebug.profiler_output_dir='/tmp'
+xdebug.profiler_append=On
+xdebug.profiler_output_name='cachegrind'
+
+WinCacheGrind
+KDECacheGrind
+
+【xprof】
+
+【opcode缓存】
+
+请求---php---词典扫描----解析---创建opcode---处理opcode----响应
+
+opcode缓存工具
+APC(Alternative PHP Cache)
+XCache:
+eA:(eAccelerator) 
+
+【APC】
+1.安装apc扩展
+extension=apc.so
+apc.enabled=1 
+apc.stat=1 
+
+2.常用的apc设置
+apc.cache_by_default 默认启用缓存
+apc.filters  根据逗号分隔的posix正则表达式判断文件需要还是不需要缓存
+             a+开头的正则不缓存
+			 a-强制缓存
+apc.stat 启用apc对php脚本更改检查
+apc.enabled  启用或禁用
+apc.shm_size 允许apc使用的共享内存大小 以M为单位
+apc.shm_segemets 设置可用共享内存段总数
+apc.include_once_override  启用将对include_once 和 require_once优化
+apc.optimization 设置优化级别
+apc.num_files_hint 设置默认缓存文件数 默认1000
+apc.ttl 设置文件缓存过期时间
+apc.write_lock 开启将强制单个进程缓存特定脚本
+
+配置实例
+extension=apc.so 
+apc.enabled=On 
+apc.shm_size=16
+apc.include_once_override=1
+apc.write_lock=1
+apc.optimization=9
+apc.stat=0 (每次更改脚本需要重启服务器)
+apc.num_files_hint=5
+
+可视化工具apc.php
+源代码中有，配置好访问路径即可
+
+【XCache工具】
+安装xcache扩展
+
+【eAccelerator工具】
+
+【变量缓存】
+APC|redis|memcache|mongo缓存mysql
+apc_add
+apc_fetch
+apc_store
+apc_exists
+apc_delete
+
+memcache 性能大于 APC
+
+[选择合适的web服务器]
+lighttpd
+nginx
