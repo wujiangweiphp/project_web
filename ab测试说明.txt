@@ -1,0 +1,73 @@
+
+【ab测试工具】
+ab -n url
+
+n : 小于50000 请求数
+【1.概览分析】
+[root@localhost bin]# ./ab -n 1 http://baidu.com
+服务器信息
+Server Software:        
+Server Hostname:        www.baidu.com
+Server Port:            80
+
+文档信息
+Document Path:          /
+Document Length:        0 bytes
+
+连接信息
+Concurrency Level:      1   并发请求总数
+Time taken for tests:   0.006 seconds 运行花费总时间
+Complete requests:      1  已完成的请求总数
+Failed requests:        0  失败的请求总数
+Write errors:           0  写入数据遇到错误总数
+Total transferred:      0 bytes  总的传输数据
+【HTML transferred】:       0 bytes  传输数据中内容正文的总大小
+【Requests per second】:    173.55 [#/sec] (mean) 每秒支持的请求总数
+【Time per request】:       5.762 [ms] (mean) 一个请求花费总时间
+【Time per request】:       5.762 [ms] (mean, across all concurrent requests) 所有并发请求中 一个请求需要花费的总时间
+Transfer rate:          0.00 [Kbytes/sec] received 每秒接收字节总数
+
+连接时间
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.0      0       0
+Processing:     6    6   0.0      6       6
+Waiting:        0    0   0.0      0       0
+【Total】:    【6】  6   0.0      6     【6】
+
+目标：
+减少 HTML transferred
+增加 Requests per second
+降低 Time per request
+
+【2.备用选项】
+-A 提供服务器身份验证 用户:密码 base64编码
+【-c】 一次模拟的请求数 并发连接数
+-C  包含cookie信息 cookie-name=value
+-d  隐藏percentage served
+-e  要创建的.csv文件路径 建议使用 gnuplot文件
+-g  要创建的gnuplot或TSV 文件路径
+-h  帮助信息
+-H  采用字段值对形式发送有效表头和请求
+-i  执行HEAD而不是GET
+-k  启用keep-alive
+【-n】  要模拟的并发请求数
+-P  (大写)post文件数据路径 用&分隔的键值对
+-p  与-A相同
+-q  执行多余100个请求隐藏进度
+-s  使用https
+-S  隐藏中位数和标准偏差值
+【-t】 timelimit 基准测试时间不会超过指定值
+-v level 2 警告和信息 3 http响应 4 表头信息
+-V 版本号
+-w 采用HTML表格打印结果
+-x 表示html属性的字符串 table
+-X 指定要使用的代理服务器
+-y 表示html属性的字符串 tr
+-z 表示html属性的字符串 td
+
+-c -n -t 
+其中 c数值要小于n
+-H 模拟表头
+./ab -n 100 -c 5 -t 20 -H "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36
+"  http://baidu.com
