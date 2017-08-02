@@ -1,0 +1,34 @@
+【siege工具】
+siege 可以对文本中url列表运行负载
+可以在执行其他请求之前 对某个请求休眠
+【安装】
+wget ftp://ftp.joedog.org/pub/siege/siege-latest.at.gz
+tar zxvf siege-latest.at.gz
+cd siege-latest
+./configure
+make && make install
+
+【测试】
+siege -c 5 -t10S http://baidu.com
+并发访问时间 S秒 M分钟 H小时
+
+Transections:	102 hits   已完成的事物总数
+Availability:	100.00%	
+Elapsed time:	9.71 secs	完成测试花费总时间
+【Data transferred】:	0.04MB	不包含表头数据总大小
+Response time:	0.02 secs 	平均响应时间
+【Transection rate】:	10.50 trans/sec 	每秒事务总数
+Throughput:	0.00 MB/sec	处理数据和响应所需要的总时间
+Concurrency:	0.24	同时连接的平均数
+Successful transections:	102  成功事务总数
+Failed transections:	0	失败事务总数
+【Longest transection】:	0.03	最长的一个请求时间
+【Shortest transection】:	0.02	最短的一个请求时间
+
+siege -c 5 -t10s -i -f /home/url.txt
+
+-i 和 -f 同时使用。可以随机选取url.txt中的一个测试
+url.txt文件格式
+http://baidu.com
+http://ali.com
+http://163.com
