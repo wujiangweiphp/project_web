@@ -1,4 +1,13 @@
 <?php
+/*
+ 【观察者模式|发布/订阅模式】
+事件、消息队列系统 使用观察者模式
+PHP 为观察者模式定义了两个接口：SplSubject 和 SplObserver。
+还有一个对象存储类：SplObjectStorage
+SplObjectStorage：类提供从对象到数据的映射,对象存储
+SplSubject: 接口 提供attach 和 detach、notify方法
+SplObserver: 接口 提供update(SplSubject $subject)
+*/
 /**
  * 【主体对象】
  * 观察者模式 : 被观察对象 (主体对象)
