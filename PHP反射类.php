@@ -213,11 +213,17 @@ Array
 ?>
 
 getInterfaceNames() 返回当前类实例化的接口的名字. 
-getParentClass() 返回一个 ReflectionClass object representation of the parent class or false if there is no parent. To list the name of the ReflectionClass object, you use the getName() method, as you have seen in the above code.
+getParentClass() 返回一个 ReflectionClass 对象 表示这个父类或者 false（如果没有父类的话）.
+ 为了列举出 ReflectionClass 对象的名字, you 你可以使用 getName() 方法, 
+ 就像你在上面的方法中看到的.
 
-The getMethods() method retrieves an array of methods and can take as an optional argument a bitmask combination of ReflectionMethod::IS_STATIC, IS_PUBLIC, IS_PROTECTED, IS_PRIVATE, IS_ABSTRACT, and IS_FINAL to filter the list based on visibility.
+ getMethods() 方法返回了一个数组的方法 还可以加一个可选参数 ReflectionMethod::IS_STATIC, IS_PUBLIC, IS_PROTECTED, IS_PRIVATE, 
+IS_ABSTRACT, 和 IS_FINAL 过率掉基于可见的方法
 
-The Reflection API provides a good implementation of reflection giving you the ability to create more complex applications, such as ApiGen, though further discussion is beyond this goal of this article.
+ Reflection API 提供了一个好的实现给你反射的能力去创建更好的应用, 像 ApiGen, 虽然进一步的讨论超出了本文的目标.
 
-Summary
-In this article you’ve seen how to use PHP’s introspection functions and Refection API to obtain information about classes, interfaces, properties, and methods. The purpose of pulling this information is to gain greater insight into your code at run time and to create complex applications.
+总结
+这篇文章里你已经看到了如何去使用 PHP的 内省函数 和 反射 API 来获取得到信息关于类, 接口, 属性, 和 方法. 获取这些信息的目的是在运行时更好地了
+解您的代码，并创建复杂的应用程序。
+
+
