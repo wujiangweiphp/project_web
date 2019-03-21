@@ -127,3 +127,24 @@ function rand_array_custom3($total_num = 0, $need_num = 0, $start_key = 1)
     }
     return array_rand($total_arr,$need_num);
 }
+
+/**
+ * ---------------------- 算法四 -------------------------
+ * @todo: 获取 $total_num 个数中 $need_num 个不重复的数值
+ * @author： friker
+ * @date: 2019/3/21
+ * @param int $total_num
+ * @param int $need_num
+ * @param int $start_key
+ * @return mixed
+ */
+function rand_array_custom4($total_num = 0, $need_num = 0, $start_key = 1)
+{
+    $total_arr = array();
+    for ($i = $start_key; $i < $total_num + $start_key; $i++) {
+        $total_arr[$i] = $i;
+    }
+    shuffle($total_arr);
+    return array_slice($total_arr,0,$need_num);
+}
+
