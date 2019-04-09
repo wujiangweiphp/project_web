@@ -1,5 +1,4 @@
-swoft精选一（swoft使用jwt实现restful接口验证）
-
+# swoft精选一（swoft使用jwt实现restful接口验证）
 > 本文介绍关于swoft使用jwt的介绍
 
 * [1\.安装依赖](#1%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96)
