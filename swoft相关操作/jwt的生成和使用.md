@@ -17,6 +17,7 @@ swoft精选一（swoft使用jwt实现restful接口验证）
 * [7\. 用token换取结果信息](#7-%E7%94%A8token%E6%8D%A2%E5%8F%96%E7%BB%93%E6%9E%9C%E4%BF%A1%E6%81%AF)
 
 文档地址： https://doc.swoft.org/master/zh-CN/auth/index.html
+参考文档： https://segmentfault.com/a/1190000018394438?utm_source=tag-newest
 
 ### 1.安装依赖
 
@@ -125,8 +126,8 @@ class ApiAuthLogic implements AccountTypeInterface
 
 `AccountTypeInterface`接口约定了:
 . jwt签发token : `login` 方法，返回的对象 `AuthResult` 包含了两个字段
-   `setIdentity`和 `getIdentity` 对应 `sub`，即jwt的签发对象，一般使用id即可
-   `setExtendedData` 和 `getExtendedData` 对应 `payload` 即jwt的载荷，存储一些非敏感信息即可
+1.  `setIdentity`和 `getIdentity` 对应 `sub`，即jwt的签发对象，一般使用id即可
+2.  `setExtendedData` 和 `getExtendedData` 对应 `payload` 即jwt的载荷，存储一些非敏感信息即可
 
 . jwt验证token ：`authenticate` 认证token是否有效
 
