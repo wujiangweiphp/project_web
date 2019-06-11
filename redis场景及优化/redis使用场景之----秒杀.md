@@ -40,7 +40,7 @@ public function buy()
         die('已卖完');
     } else {
         //该结果返回自增后的数
-        $result = $redis->inc('sales-good-id:' . $id, 1);
+        $result = $redis->incr('sales-good-id:' . $id, 1);
         if ($result > 0 && $result != $sales && $limit>= $result) {
             // mysql handle here ...
             die('购买成功');
