@@ -41,7 +41,7 @@ public function buy()
     } else {
         //该结果返回自增后的数
         $result = $redis->inc('sales-good-id:' . $id, 1);
-        if ($result > 0 && $result != $sales) {
+        if ($result > 0 && $result != $sales && $limit>= $result) {
             // mysql handle here ...
             die('购买成功');
         } else {
