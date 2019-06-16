@@ -48,17 +48,69 @@ for($i = $distance_first; $i>$distance_first-30;$i++ ) {
 }
 ```
 
-<pre>
-bitcount  key start end
+### 4. 实现原理
+
+0000 0000 | 0000 0000 
+存储是以单个2位16进制无符号整型存储 每超过最大数值范围就增加 1个整数
+
+1000 0000 | 第 0 位 类似于第 0 天的签到 对应的十进制为 128
+0100 0000 | 第 1 位 类似于第 1 天的签到 对应的十进制为 64
+0010 0000 | 第 2 位 类似于第 2 天的签到 对应的十进制为 32
+
+所以 bitcount 所实现的统计是以8位的倍数 所做的统计
+
 start : start * 8
-end : end * 8 - 1 
-</pre>
+end : end * 8 - 1
 
-### 4. 统计所有数量
+bitcount  key start end
 
+
+
+### 5. 统计实现
+
+```go
+res, err := conn.Do("get", "user1")
+result := res.([]uint8)
+fmt.Println(res)
+
+//result := []uint8{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24}
+count := countRange(result, 187, 190)
+fmt.Println(count)
+
+/**
+  result := []uint8{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24}
+*/
+func countRange(result []uint8, start, end int) int {
+	str := ""
+	for _, v := range result {
+		tmp := fmt.Sprintf("%b", v)
+		l := len(tmp)
+		if 8 > l {
+			str += strings.Repeat("0", 8-l)
+		}
+		str += tmp
+	}
+	fmt.Println(str)
+	byteStr := []rune(str)
+	count := 0
+	for i := start; i <= end; i++ {
+		if byteStr[i] == '1' {
+			count++
+		}
+	}
+	return count
+}
 ```
-bitcount key
-bitcount key 0 -1
+lua实现
+
+```lua
+local function countRange(key,start,end)
+    count = 0
+	for i=start,end,1 do
+       count = count + redis.call("getbit",i)
+	end
+	return count
+end
 ```
 
 
